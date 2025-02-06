@@ -1,9 +1,10 @@
 
 name: App With Github Actions with EKS, ArgoCD  
-on:    
-   push:        
-    paths-ignore: 
-      - 'manifest/**'   
+on:   
+   workflow_dispatch
+   # push:        
+   #  paths-ignore: 
+   #    - 'manifest/**'   
 jobs: 
   ci-cd:   
     runs-on: ubuntu-latest
