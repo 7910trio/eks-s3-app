@@ -112,5 +112,21 @@ public class S3Service {
 		
 		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
 	}
+
+	public void deleteS3File(long fileNo) {
+
+	        AttachmentFile attachmentFile = null;
+	
+	        // DB에서 파일 검색
+	        attachmentFile = fileRepository.findById(fileNo)
+	                .orElseThrow(() -> new NoSuchElementException("파일 없음"));
+	
+	        if (attachmentFile.getAttachmentFileNo() != null) {
+	            // S3의 파일 지우기
+	            amazonS3.deleteObject(bucketName, DIR_NAME + "/" + attachmentFile.getAttachmentFileName());
+	
+	            fileRepository.deleteById(fileNo);
+	        }
+	}
 	
 }
